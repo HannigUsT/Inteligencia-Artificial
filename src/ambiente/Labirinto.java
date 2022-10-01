@@ -1,7 +1,6 @@
 package ambiente;
 
 import java.util.LinkedList;
-
 import agente.AgenteLabirinto;
 import geral.PosicaoXY;
 
@@ -68,6 +67,10 @@ public class Labirinto implements Runnable{
 		return this.tamanhoLabirinto;
 	}
 
+	public LinkedList<PosicaoXY> getEspaco_limpos(){
+		return this.espaco_limpos;
+	}
+
 	public String retornarValorPosicaoLabirinto(PosicaoXY posicao) {
 		return this.labirinto[posicao.getPosX()][posicao.getPosY()];
 	}
@@ -82,13 +85,11 @@ public class Labirinto implements Runnable{
 		System.out.println("Entrou na posicao " + posicao.getPosX() + " " + posicao.getPosY() + "\n");
 		labirinto[posicao.getPosX()][posicao.getPosY()] = "L";
 	}
-	
 
-	public synchronized void retirarEspacos() throws InterruptedException{
+	public synchronized void retirarEspacos() throws InterruptedException {
 		try {
 			while(true){
-
-				Thread.sleep(3000);
+				Thread.sleep(7000);
 				PosicaoXY posicaoXY = this.espaco_limpos.getFirst();
 				System.out.println("Saiu da posicao " + posicaoXY.getPosX() + " " + posicaoXY.getPosY() + "\n");
 				this.espaco_limpos.removeFirst();
