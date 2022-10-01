@@ -4,22 +4,20 @@ import ambiente.Labirinto;
 import geral.PosicaoXY;
 
 public class AgenteLabirinto {
-
-	// Movimentar para 4 direções (Cima, baixo, esquerda, direita)
-	// Referencia do Labiririnto 
 	
 	private Labirinto labirinto;
+
 	private MovimentosAgenteLabirinto movimento;
-	
+
 	private PosicaoXY posXY;
 	
 	private int pilhaMovimentos;
-
+	
 	public AgenteLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
 		labirinto.setAgente(this);
 		this.posXY = new PosicaoXY();
-		this.movimento = MovimentosAgenteLabirinto.CIMA;
+		this.movimento = MovimentosAgenteLabirinto.DIREITA;
 	}
 	
 	public void movimentar() {
@@ -28,7 +26,6 @@ public class AgenteLabirinto {
 		}
 		PosicaoXY proximoMovimento = retornarMovimento();
 		String valor = this.labirinto.retornarValorPosicaoLabirinto(proximoMovimento);
-		
 		if (valor.equals("L") || valor.equals("*A*")) {
 			proximoMovimento();
 			aumentarPilha();
@@ -102,7 +99,6 @@ public class AgenteLabirinto {
 
 	public void setPosicao(PosicaoXY posicaoXY) {
 		this.posXY = posicaoXY;
-		
 	}
 	
 }

@@ -1,9 +1,11 @@
 package ambiente;
 
+import java.util.LinkedList;
+
 import agente.AgenteLabirinto;
 import geral.PosicaoXY;
 
-public class Labirinto {
+public class Labirinto implements Runnable{
 
 	private int tamanhoLabirinto;
 	
@@ -11,18 +13,26 @@ public class Labirinto {
 	
 	private AgenteLabirinto agente;
 	
-	/* Valores
-	 * S - Sujo
-	 * L - Limpo
-	 * *A* - Agente
-	 */
+	private LinkedList <PosicaoXY> espaco_limpos;
+
+	Thread t;
 	
 	public Labirinto(int tamanhoLabirinto) {
 		this.tamanhoLabirinto = tamanhoLabirinto;
 		this.construirNovoLabirinto();
+		this.espaco_limpos = new LinkedList<PosicaoXY>();
+		this.t = new Thread(this);
+		this.t.start();	
 	}
 	
-	// Construir o labirinto
+	public void run(){
+		try{
+			retirarEspacos();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}            
+    }
+
 	private void construirNovoLabirinto() {
 		labirinto = new String[this.tamanhoLabirinto][this.tamanhoLabirinto];
 		for (int i = 0; i < this.tamanhoLabirinto; i++) {
@@ -38,10 +48,9 @@ public class Labirinto {
 			for (int j = 0; j < tamanhoLabirinto; j++) {
 				if (labirinto[i][j].equals("*A*")) {
 					System.out.print("|" + labirinto[i][j] + "|");
-				} else {
+				}else{
 					System.out.print("| " + labirinto[i][j] + " |");
 				}
-				
 			}
 			System.out.println("");
 		}
@@ -56,7 +65,6 @@ public class Labirinto {
 	}
 
 	public int getTamanhoLabirinto() {
-		
 		return this.tamanhoLabirinto;
 	}
 
@@ -70,7 +78,23 @@ public class Labirinto {
 
 	public void limpar() {
 		PosicaoXY posicao = this.agente.getPosicao();
+		this.espaco_limpos.add(this.agente.getPosicao());
+		System.out.println("Entrou na posicao " + posicao.getPosX() + " " + posicao.getPosY() + "\n");
 		labirinto[posicao.getPosX()][posicao.getPosY()] = "L";
 	}
 	
+
+	public synchronized void retirarEspacos() throws InterruptedException{
+		try {
+			while(true){
+
+				Thread.sleep(3000);
+				PosicaoXY posicaoXY = this.espaco_limpos.getFirst();
+				System.out.println("Saiu da posicao " + posicaoXY.getPosX() + " " + posicaoXY.getPosY() + "\n");
+				this.espaco_limpos.removeFirst();
+			}
+		} catch(Exception e) {
+			// TODO: handle exception
+		}
+    }
 }

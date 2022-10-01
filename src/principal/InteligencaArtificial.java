@@ -8,11 +8,11 @@ public class InteligencaArtificial {
 
 	public static void main(String[] args) throws InterruptedException	 {
 		
-		Labirinto labirinto = new Labirinto(10);	
+		Labirinto labirinto = new Labirinto(3);	
 		labirinto.exibirLabirinto();
 		
 		AgenteLabirinto agente = new AgenteLabirinto(labirinto);
-		agente.setPosicao(new PosicaoXY(2,4));
+		agente.setPosicao(new PosicaoXY(0,0));
 
 		while(agente.isAindaLimpando()) {
 			agente.zerarPilha();
