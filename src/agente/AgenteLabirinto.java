@@ -1,7 +1,6 @@
 package agente;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import ambiente.Labirinto;
 import geral.PosicaoXY;
 
@@ -11,11 +10,9 @@ public class AgenteLabirinto {
 
 	private MovimentosAgenteLabirinto movimento;
 
-	private PosicaoXY posXY,espaco_limpo;
+	private PosicaoXY posXY;
 	
 	private int pilhaMovimentos;
-
-	private LinkedList <PosicaoXY> posicao;
 	
 	private HashMap<String, PosicaoXY> validar_posicao;
 
@@ -25,7 +22,6 @@ public class AgenteLabirinto {
 		labirinto.setAgente(this);
 		this.posXY = new PosicaoXY();
 		this.movimento = MovimentosAgenteLabirinto.DIREITA;
-		this.posicao = new LinkedList <PosicaoXY>();
 		this.validar_posicao = new HashMap<String, PosicaoXY>();
 	}
 	
@@ -35,14 +31,7 @@ public class AgenteLabirinto {
 		}
 		PosicaoXY proximoMovimento = retornarMovimento();
 		String valor = this.labirinto.retornarValorPosicaoLabirinto(proximoMovimento);
-		this.posicao = this.labirinto.getEspaco_limpos();
-		if(posicao.size() > 0 ){
-			this.validar_posicao.clear();
-			for(int i = 0; i < posicao.size(); i++){
-				this.espaco_limpo = this.posicao.get(i);
-				this.validar_posicao.put(Integer.toString(this.espaco_limpo.getPosX())+Integer.toString(this.espaco_limpo.getPosY()),this.posicao.get(i));
-			}
-		}
+		this.validar_posicao = this.labirinto.getEspacos_limpos();
 		if (valor.equals("*A*")) {
 			proximoMovimento();
 			aumentarPilha();

@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import agente.AgenteLabirinto;
 import geral.PosicaoXY;
 
+import java.util.HashMap;
+
 public class Labirinto implements Runnable{
 
 	private int tamanhoLabirinto;
@@ -14,19 +16,20 @@ public class Labirinto implements Runnable{
 	
 	private LinkedList <PosicaoXY> espaco_limpos;
 
+	private HashMap<String, PosicaoXY> espacos_limpos;
+
 	Thread t;
 	
 	public Labirinto(int tamanhoLabirinto) {
 		this.tamanhoLabirinto = tamanhoLabirinto;
 		this.construirNovoLabirinto();
 		this.espaco_limpos = new LinkedList<PosicaoXY>();
-		this.t = new Thread(this);
-		this.t.start();	
+		this.espacos_limpos = new HashMap<String, PosicaoXY>();
 	}
 	
 	public void run(){
 		try{
-			retirarEspacos();
+			retirarEspacos(t.getName());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}            
@@ -71,6 +74,10 @@ public class Labirinto implements Runnable{
 		return this.espaco_limpos;
 	}
 
+	public HashMap<String, PosicaoXY> getEspacos_limpos(){
+		return this.espacos_limpos;
+	}
+
 	public String retornarValorPosicaoLabirinto(PosicaoXY posicao) {
 		return this.labirinto[posicao.getPosX()][posicao.getPosY()];
 	}
@@ -81,17 +88,16 @@ public class Labirinto implements Runnable{
 
 	public void limpar() {
 		PosicaoXY posicao = this.agente.getPosicao();
-		this.espaco_limpos.add(this.agente.getPosicao());
+		this.espacos_limpos.put(Integer.toString(posicao.getPosX())+Integer.toString(posicao.getPosY()),this.agente.getPosicao());
 		labirinto[posicao.getPosX()][posicao.getPosY()] = "L";
+		this.t = new Thread(this, Integer.toString(posicao.getPosX())+Integer.toString(posicao.getPosY()));
+		this.t.start();	
 	}
 
-	public synchronized void retirarEspacos() throws InterruptedException {
+	public synchronized void retirarEspacos(String posicao) throws InterruptedException {
 		try {
-			while(true){
-				Thread.sleep(3000);
-				PosicaoXY posicaoXY = this.espaco_limpos.getFirst();
-				this.espaco_limpos.removeFirst();
-			}
+			Thread.sleep(10000);
+			this.espacos_limpos.remove(posicao);
 		} catch(Exception e) {
 			// TODO: handle exception
 		}
