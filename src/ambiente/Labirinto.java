@@ -82,16 +82,14 @@ public class Labirinto implements Runnable{
 	public void limpar() {
 		PosicaoXY posicao = this.agente.getPosicao();
 		this.espaco_limpos.add(this.agente.getPosicao());
-		System.out.println("Entrou na posicao " + posicao.getPosX() + " " + posicao.getPosY() + "\n");
 		labirinto[posicao.getPosX()][posicao.getPosY()] = "L";
 	}
 
 	public synchronized void retirarEspacos() throws InterruptedException {
 		try {
 			while(true){
-				Thread.sleep(7000);
+				Thread.sleep(3000);
 				PosicaoXY posicaoXY = this.espaco_limpos.getFirst();
-				System.out.println("Saiu da posicao " + posicaoXY.getPosX() + " " + posicaoXY.getPosY() + "\n");
 				this.espaco_limpos.removeFirst();
 			}
 		} catch(Exception e) {

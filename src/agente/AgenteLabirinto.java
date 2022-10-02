@@ -36,19 +36,19 @@ public class AgenteLabirinto {
 		PosicaoXY proximoMovimento = retornarMovimento();
 		String valor = this.labirinto.retornarValorPosicaoLabirinto(proximoMovimento);
 		this.posicao = this.labirinto.getEspaco_limpos();
+		if(posicao.size() > 0 ){
+			this.validar_posicao.clear();
+			for(int i = 0; i < posicao.size(); i++){
+				this.espaco_limpo = this.posicao.get(i);
+				this.validar_posicao.put(Integer.toString(this.espaco_limpo.getPosX())+Integer.toString(this.espaco_limpo.getPosY()),this.posicao.get(i));
+			}
+		}
 		if (valor.equals("*A*")) {
 			proximoMovimento();
 			aumentarPilha();
 			movimentar();
+			
 		} else {
-			if(posicao.size() > 0 ){
-				this.validar_posicao.clear();
-				for(int i = 0; i < posicao.size(); i++){
-					this.espaco_limpo = this.posicao.get(i);
-					this.validar_posicao.put(Integer.toString(this.espaco_limpo.getPosX())+Integer.toString(this.espaco_limpo.getPosY()),this.posicao.get(i));
-				}
-				System.out.println("\n Espaços: "+this.espaco_limpo.getPosX()+" "+this.espaco_limpo.getPosY()+"\n");
-			}
 			this.labirinto.limpar();
 			this.posXY = proximoMovimento;
 		}
@@ -82,7 +82,6 @@ public class AgenteLabirinto {
 		switch(movimento) {
 			case CIMA:
 				if (retornoPosX > 0) {
-					System.out.println(this.validar_posicao.get(Integer.toString((retornoPosX - 1)) + Integer.toString(retornoPosY)));
 					if(this.validar_posicao.get(Integer.toString((retornoPosX - 1))+Integer.toString(retornoPosY)) == null) {
 						retornoPosX -= 1;
 					}
@@ -92,6 +91,7 @@ public class AgenteLabirinto {
 				if (retornoPosX < this.labirinto.getTamanhoLabirinto() - 1) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX + 1))+Integer.toString(retornoPosY)) == null) {
 						retornoPosX += 1;
+						this.validar_posicao.remove(Integer.toString((retornoPosX + 1))+Integer.toString(retornoPosY));
 					}
 				}
 				break;
@@ -99,6 +99,7 @@ public class AgenteLabirinto {
 				if (retornoPosY > 0) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX))+Integer.toString(retornoPosY - 1)) == null) {
 						retornoPosY -= 1;
+						this.validar_posicao.remove(Integer.toString((retornoPosX))+Integer.toString(retornoPosY - 1));
 					}
 					
 				}
@@ -107,6 +108,7 @@ public class AgenteLabirinto {
 				if (retornoPosY < this.labirinto.getTamanhoLabirinto() - 1) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX))+Integer.toString(retornoPosY + 1)) == null) {
 						retornoPosY += 1;
+						this.validar_posicao.remove(Integer.toString((retornoPosX))+Integer.toString(retornoPosY + 1));
 					}
 				}
 				break;
@@ -119,7 +121,7 @@ public class AgenteLabirinto {
 	}
 
 	public boolean isAindaLimpando() {
-		return pilhaMovimentos < 4;
+		return true;
 	}
 
 	public void zerarPilha() {

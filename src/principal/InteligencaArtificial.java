@@ -8,7 +8,7 @@ public class InteligencaArtificial {
 
 	public static void main(String[] args) throws InterruptedException	 {
 		
-		Labirinto labirinto = new Labirinto(3);	
+		Labirinto labirinto = new Labirinto(10);	
 		labirinto.exibirLabirinto();
 		
 		AgenteLabirinto agente = new AgenteLabirinto(labirinto);
