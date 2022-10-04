@@ -36,7 +36,6 @@ public class AgenteLabirinto {
 			proximoMovimento();
 			aumentarPilha();
 			movimentar();
-			
 		} else {
 			this.labirinto.limpar();
 			this.posXY = proximoMovimento;
@@ -75,7 +74,7 @@ public class AgenteLabirinto {
 						retornoPosX -= 1;
 					}
 				}
-				break;
+			break;
 			case BAIXO:
 				if (retornoPosX < this.labirinto.getTamanhoLabirinto() - 1) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX + 1))+Integer.toString(retornoPosY)) == null) {
@@ -83,7 +82,7 @@ public class AgenteLabirinto {
 						this.validar_posicao.remove(Integer.toString((retornoPosX + 1))+Integer.toString(retornoPosY));
 					}
 				}
-				break;
+			break;
 			case ESQUERDA:
 				if (retornoPosY > 0) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX))+Integer.toString(retornoPosY - 1)) == null) {
@@ -92,7 +91,7 @@ public class AgenteLabirinto {
 					}
 					
 				}
-				break;
+			break;
 			case DIREITA:
 				if (retornoPosY < this.labirinto.getTamanhoLabirinto() - 1) {
 					if(this.validar_posicao.get(Integer.toString((retornoPosX))+Integer.toString(retornoPosY + 1)) == null) {
@@ -100,7 +99,7 @@ public class AgenteLabirinto {
 						this.validar_posicao.remove(Integer.toString((retornoPosX))+Integer.toString(retornoPosY + 1));
 					}
 				}
-				break;
+			break;
 		}
 		return new PosicaoXY(retornoPosX, retornoPosY);
 	}

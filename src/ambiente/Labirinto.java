@@ -1,10 +1,8 @@
 package ambiente;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import agente.AgenteLabirinto;
 import geral.PosicaoXY;
-
-import java.util.HashMap;
 
 public class Labirinto implements Runnable{
 
@@ -13,8 +11,6 @@ public class Labirinto implements Runnable{
 	private String[][] labirinto;
 	
 	private AgenteLabirinto agente;
-	
-	private LinkedList <PosicaoXY> espaco_limpos;
 
 	private HashMap<String, PosicaoXY> espacos_limpos;
 
@@ -23,7 +19,6 @@ public class Labirinto implements Runnable{
 	public Labirinto(int tamanhoLabirinto) {
 		this.tamanhoLabirinto = tamanhoLabirinto;
 		this.construirNovoLabirinto();
-		this.espaco_limpos = new LinkedList<PosicaoXY>();
 		this.espacos_limpos = new HashMap<String, PosicaoXY>();
 	}
 	
@@ -68,10 +63,6 @@ public class Labirinto implements Runnable{
 
 	public int getTamanhoLabirinto() {
 		return this.tamanhoLabirinto;
-	}
-
-	public LinkedList<PosicaoXY> getEspaco_limpos(){
-		return this.espaco_limpos;
 	}
 
 	public HashMap<String, PosicaoXY> getEspacos_limpos(){
