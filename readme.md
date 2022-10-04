@@ -14,4 +14,6 @@
 
  Após o armazenamento do local que foi limpo, é iniciada uma thread para fazer a remoção da posição armazenada. Está thread recebe como nome a posição limpa e inicializa uma nova função que aguardar os três segundo e remove a posição do HashMap. 
 
- <img widht="470" src="/img.png">
+<div align="center">
+ <img src="https://user-images.githubusercontent.com/63758393/193724980-2350fe2a-c484-458c-9ccc-0826c74314b1.png" widht="586px">
+</div>
